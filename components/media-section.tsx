@@ -15,6 +15,8 @@ const mediaItems = [
     },
     source: "YouTube",
     youtubeId: "iN8Iop4ZHzs",
+    url: "https://www.youtube.com/watch?v=iN8Iop4ZHzs",
+    thumbnail: "https://img.youtube.com/vi/iN8Iop4ZHzs/maxresdefault.jpg",
     description: { 
       en: "Exclusive interview with Markus Katzer about SK Rapid Wien", 
       de: "Exklusives Interview mit Markus Katzer über SK Rapid Wien" 
@@ -28,6 +30,8 @@ const mediaItems = [
     },
     source: "YouTube",
     youtubeId: "pmQSWriv0JU",
+    url: "https://www.youtube.com/watch?v=pmQSWriv0JU",
+    thumbnail: "https://img.youtube.com/vi/pmQSWriv0JU/maxresdefault.jpg",
     description: { 
       en: "Discussion about his role at SK Rapid Wien", 
       de: "Diskussion über seine Rolle bei SK Rapid Wien" 
@@ -41,6 +45,8 @@ const mediaItems = [
     },
     source: "YouTube",
     youtubeId: "FHdRBtT9Nmw",
+    url: "https://www.youtube.com/watch?v=FHdRBtT9Nmw",
+    thumbnail: "https://img.youtube.com/vi/FHdRBtT9Nmw/maxresdefault.jpg",
     description: { 
       en: "Strategic insights on football management and development", 
       de: "Strategische Einblicke in Fußballmanagement und Entwicklung" 
@@ -54,6 +60,8 @@ const mediaItems = [
     },
     source: "YouTube",
     youtubeId: "v3IAQ309so4",
+    url: "https://www.youtube.com/watch?v=v3IAQ309so4",
+    thumbnail: "https://img.youtube.com/vi/v3IAQ309so4/maxresdefault.jpg",
     description: { 
       en: "Markus Katzer shares insights on Austrian football landscape", 
       de: "Markus Katzer teilt Einblicke in die österreichische Fußballlandschaft" 
@@ -67,6 +75,8 @@ const mediaItems = [
     },
     source: "YouTube",
     youtubeId: "CXJIXC08eDQ",
+    url: "https://www.youtube.com/watch?v=CXJIXC08eDQ",
+    thumbnail: "https://img.youtube.com/vi/CXJIXC08eDQ/maxresdefault.jpg",
     description: { 
       en: "Discussion on SK Rapid Wien's strategic direction", 
       de: "Diskussion über die strategische Ausrichtung von SK Rapid Wien" 
@@ -80,6 +90,8 @@ const mediaItems = [
     },
     source: "YouTube",
     youtubeId: "jqYBE8sotec",
+    url: "https://www.youtube.com/watch?v=jqYBE8sotec",
+    thumbnail: "https://img.youtube.com/vi/jqYBE8sotec/maxresdefault.jpg",
     description: { 
       en: "Focus on youth development and talent management at Rapid", 
       de: "Fokus auf Nachwuchsentwicklung und Talentmanagement bei Rapid" 

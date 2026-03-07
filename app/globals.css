@@ -1,13 +1,11 @@
 @import "tailwindcss";
-@import 'tw-animate-css';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 /* @custom-variant dark (&:is(.dark *)); */
 
 /* SK Rapid Wien Design System - Dark Mode First */
 :root {
   /* SK Rapid Wien Color Palette */
-  --rapid-green: #00794B;
+  --rapid-green: #244233;
   --rapid-blue: #005081;
   --rapid-red: #E30613;
   --rapid-gold: #FFED00;
@@ -16,7 +14,7 @@
   --rapid-white: #FFFFFF;
 
   /* Background & Surfaces */
-  --background: var(--rapid-black);
+  --background: #244233;
   --foreground: var(--rapid-white);
   --card: var(--rapid-dark);
   --card-foreground: var(--rapid-white);
@@ -105,8 +103,8 @@
 
 /* Light mode overrides (optional, but keeping dark mode as primary) */
 .light {
-  --background: var(--rapid-white);
-  --foreground: var(--rapid-black);
+  --background: var(--rapid-green);
+  --foreground: var(--rapid-white);
   --card: oklch(0.98 0 0);
   --card-foreground: var(--rapid-black);
   --popover: oklch(0.98 0 0);
@@ -145,12 +143,37 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
-/* Jugendstil Pattern Background */
+/* Jugendstil Pattern Background - Inspired by Vienna U-Bahn Stations */
 .jugendstil-pattern {
   background-image:
-    radial-gradient(circle at 25% 25%, rgba(0, 121, 75, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 75% 75%, rgba(0, 121, 75, 0.1) 2px, transparent 2px);
-  background-size: 20px 20px;
+    /* Jugendstil-inspired geometric patterns */
+    radial-gradient(circle at 20% 20%, rgba(36, 66, 51, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(36, 66, 51, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 40% 60%, rgba(0, 80, 129, 0.06) 1px, transparent 1px),
+    radial-gradient(circle at 60% 40%, rgba(0, 80, 129, 0.06) 1px, transparent 1px),
+    /* Tile pattern inspired by Karlsplatz station */
+    linear-gradient(45deg, rgba(255, 237, 0, 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 237, 0, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 237, 0, 0.03) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 237, 0, 0.03) 75%);
+  background-size:
+    30px 30px,
+    30px 30px,
+    45px 45px,
+    45px 45px,
+    20px 20px,
+    20px 20px,
+    20px 20px,
+    20px 20px;
+  background-position:
+    0 0,
+    15px 15px,
+    0 0,
+    22px 22px,
+    0 0,
+    0 0,
+    0 0,
+    10px 10px;
 }
 
 /* 45° Angle Utilities */
@@ -167,43 +190,97 @@
 }
 
 .overlay-45 {
-  background: linear-gradient(-45deg, rgba(0, 121, 75, 0.8), rgba(0, 80, 129, 0.8));
+  background:
+    linear-gradient(-45deg, rgba(36, 66, 51, 0.85) 0%, rgba(0, 80, 129, 0.75) 50%, rgba(227, 6, 19, 0.7) 100%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  position: relative;
 }
 
-/* Keyvisual "1899" Styling */
+.overlay-45::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 237, 0, 0.1) 2px,
+      rgba(255, 237, 0, 0.1) 4px
+    );
+  opacity: 0.3;
+}
+
+/* Keyvisual "1899" Styling - SK Rapid Founding Year */
 .keyvisual-1899 {
-  font-size: clamp(8rem, 20vw, 15rem);
+  font-size: clamp(10rem, 25vw, 20rem);
   font-weight: 900;
-  line-height: 0.8;
-  letter-spacing: -0.05em;
+  line-height: 0.75;
+  letter-spacing: -0.08em;
   color: var(--rapid-green);
-  opacity: 0.1;
+  opacity: 0.06;
   position: absolute;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  text-shadow:
+    2px 2px 0px rgba(0, 121, 75, 0.1),
+    -2px -2px 0px rgba(0, 80, 129, 0.08);
+  animation: keyvisual-pulse 12s ease-in-out infinite;
 }
 
-/* Viertelstunde Loading Animation */
-@keyframes viertelstunde {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(90deg); }
-  50% { transform: rotate(180deg); }
-  75% { transform: rotate(270deg); }
-  100% { transform: rotate(360deg); }
+@keyframes keyvisual-pulse {
+  0%, 100% { opacity: 0.04; transform: translateY(0px); }
+  50% { opacity: 0.08; transform: translateY(-10px); }
 }
 
-.viertelstunde-loader {
-  animation: viertelstunde 2s linear infinite;
+/* Rapidviertelstunde Symbol - Quarter Circle Background Pattern */
+.rapidviertelstunde-bg::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 200px;
+  height: 200px;
+  background: conic-gradient(from 0deg, #244233 90deg, transparent 90deg);
+  border-radius: 50%;
+  opacity: 0.1;
+  z-index: 0;
+  animation: viertelstunde-glow 8s ease-in-out infinite alternate;
 }
 
-/* High contrast image filter */
-.rapid-filter {
-  filter: contrast(1.2) brightness(0.9) saturate(0.8);
+.rapidviertelstunde-bg::after {
+  content: absolute;
+  position: absolute;
+  bottom: 15%;
+  left: 15%;
+  width: 150px;
+  height: 150px;
+  background: conic-gradient(from 180deg, #005081 90deg, transparent 90deg);
+  border-radius: 50%;
+  opacity: 0.08;
+  z-index: 0;
+  animation: viertelstunde-glow 6s ease-in-out infinite alternate-reverse;
 }
 
-.rapid-filter:hover {
-  filter: contrast(1.4) brightness(1.1) saturate(1.2);
+@keyframes viertelstunde-glow {
+  0% { opacity: 0.05; transform: scale(1); }
+  100% { opacity: 0.15; transform: scale(1.1); }
+}
+
+/* Fade overlay for smooth bottom transition */
+.image-fade-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.25) 65%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Typography Hierarchy */
@@ -255,22 +332,33 @@
   color: var(--rapid-white);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* SK Rapid Wien Shield-inspired Background Elements */
+.shield-pattern {
+  position: relative;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--rapid-black);
+.shield-pattern::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(-45deg, transparent 40%, rgba(36, 66, 51, 0.05) 40%, rgba(36, 66, 51, 0.05) 60%, transparent 60%);
+  clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+  z-index: 0;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--rapid-green);
-  border-radius: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--rapid-blue);
+.shield-pattern::after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  right: 8%;
+  width: 200px;
+  height: 250px;
+  background: linear-gradient(45deg, transparent 40%, rgba(0, 80, 129, 0.04) 40%, rgba(0, 80, 129, 0.04) 60%, transparent 60%);
+  clip-path: polygon(50% 0%, 0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%);
+  z-index: 0;
 }
 
 /* Focus states */

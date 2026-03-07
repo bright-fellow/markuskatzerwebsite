@@ -74,7 +74,7 @@ export function AboutSection() {
                   <li>
                     <span className="text-foreground font-medium">
                       {language === "en" ? "Born:" : "Geburtsdatum:"}
-                    </span> 11.10.1979
+                    </span> 11.12.1979
                   </li>
                   <li>
                     <span className="text-foreground font-medium">

@@ -8,7 +8,7 @@ export function HeroSection() {
   const { t, language } = useLanguage()
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden jugendstil-pattern">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden jugendstil-pattern rapidviertelstunde-bg shield-pattern">
       {/* 1899 Keyvisual Background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="keyvisual-1899 select-none">
@@ -26,7 +26,8 @@ export function HeroSection() {
           priority
         />
         <div className="absolute inset-0 overlay-45" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent from-0% via-transparent via-60% to-black/30 to-100%" />
+        <div className="image-fade-overlay" />
       </div>
 
       {/* Content */}
