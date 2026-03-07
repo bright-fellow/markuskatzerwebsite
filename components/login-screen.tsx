@@ -38,69 +38,73 @@ export function LoginScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+    <div className="min-h-screen bg-rapid-black flex flex-col items-center justify-center px-6 jugendstil-pattern">
       {/* Language Toggle */}
       <button
         onClick={toggleLanguage}
-        className="absolute top-6 right-6 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        className="absolute top-6 right-6 flex items-center gap-2 text-rapid-white/60 hover:text-rapid-green transition-colors focus-rapid"
       >
-        <span className="text-sm font-medium">{language.toUpperCase()}</span>
+        <span className="text-sm font-sohne font-medium">{language.toUpperCase()}</span>
       </button>
 
       <div className="w-full max-w-md">
         {/* Logo/Name */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight">
-            MARKUS<span className="text-primary">KATZER</span>
+          <h1 className="text-rapid-h1 text-rapid-white mb-4">
+            MARKUS<span className="text-rapid-green">KATZER</span>
           </h1>
-          <p className="text-muted-foreground mt-2 text-sm tracking-widest uppercase">
-            CEO Sports
+          <p className="text-rapid-white/70 text-sm tracking-widest uppercase font-sohne">
+            CEO Sports | SK Rapid Wien
           </p>
         </div>
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
-            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-rapid-white/60" />
             <Input
               type={showPassword ? "text" : "password"}
               placeholder={language === "en" ? "Enter password" : "Passwort eingeben"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="pl-12 pr-12 py-6 text-lg bg-card border-border"
+              className="pl-12 pr-12 py-6 text-lg font-sohne bg-rapid-dark border-rapid-dark text-rapid-white placeholder-rapid-white/50 focus:border-rapid-green focus-rapid"
               autoFocus
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-rapid-white/60 hover:text-rapid-green transition-colors"
             >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
           </div>
 
           {error && (
-            <p className="text-destructive text-sm text-center">{error}</p>
+            <p className="text-rapid-red text-sm text-center font-sohne">{error}</p>
           )}
 
           <Button
             type="submit"
             disabled={isLoading || !password}
-            className="w-full py-6 text-lg font-bold bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="w-full btn-rapid-primary focus-rapid"
           >
-            {isLoading 
-              ? (language === "en" ? "Verifying..." : "Überprüfe...") 
-              : (language === "en" ? "Access" : "Zugang")
-            }
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-rapid-white/30 border-t-rapid-white rounded-full viertelstunde-loader"></div>
+                {language === "en" ? "Authenticating..." : "Authentifizierung..."}
+              </div>
+            ) : (
+              language === "en" ? "ACCESS" : "ZUGRIFF"
+            )}
           </Button>
         </form>
 
-        <p className="text-center text-muted-foreground text-sm mt-8">
-          {language === "en" 
-            ? "This site is password protected" 
-            : "Diese Seite ist passwortgeschützt"
-          }
-        </p>
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <p className="text-rapid-white/50 text-xs font-sohne uppercase tracking-widest">
+            {language === "en" ? "SK Rapid Wien - Tradition × Typography" : "SK Rapid Wien - Tradition × Typografie"}
+          </p>
+        </div>
       </div>
     </div>
   )

@@ -1,0 +1,22 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- SK Rapid Wien inspired background -->
+  <rect width="32" height="32" rx="4" fill="#00794B"/>
+
+  <!-- Jugendstil inspired pattern -->
+  <circle cx="8" cy="8" r="1" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="24" cy="24" r="1" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="8" cy="24" r="1" fill="#FFFFFF" opacity="0.2"/>
+  <circle cx="24" cy="8" r="1" fill="#FFFFFF" opacity="0.2"/>
+
+  <!-- MK Letters in SK Rapid style -->
+  <g fill="#FFFFFF">
+    <!-- M -->
+    <path d="M6 22V12.5C6 12.5 6 10 8 10C9.5 10 10 11.5 10 13L10 22M10 13L12.5 10L15 13L15 22" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <!-- K -->
+    <path d="M18 22V10M26 10L18 16.5L26 22" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Rapid Green accent -->
+  <rect x="28" y="28" width="4" height="4" fill="#FFED00" opacity="0.8"/>
+</svg>

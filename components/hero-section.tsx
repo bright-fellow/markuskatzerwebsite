@@ -6,71 +6,95 @@ import { useLanguage } from "@/lib/language-context"
 
 export function HeroSection() {
   const { t, language } = useLanguage()
-  
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden jugendstil-pattern">
+      {/* 1899 Keyvisual Background */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="keyvisual-1899 select-none">
+          1899
+        </div>
+      </div>
+
+      {/* Background Image with 45° Overlay */}
       <div className="absolute inset-0">
-        <Image 
-          src="/images/gallery-rapid-stadium.jpg" 
-          alt="Background"
+        <Image
+          src="/images/gallery-rapid-stadium.jpg"
+          alt="Allianz Stadion - SK Rapid Wien"
           fill
-          className="object-cover"
+          className="object-cover rapid-filter"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
+        <div className="absolute inset-0 overlay-45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background/90" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        <div className="mb-6">
-          <span className="text-primary text-sm md:text-base font-bold tracking-[0.3em] uppercase">
-            {t("hero.role")} | {t("hero.club")}
+        <div className="mb-8">
+          <span className="text-rapid-green text-sm md:text-base font-sohne-condensed font-black tracking-[0.3em] uppercase">
+            {language === "en" ? "CEO SPORTS" : "CEO SPORTS"} | SK RAPID WIEN
           </span>
         </div>
-        
-        <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[12rem] font-black tracking-tighter leading-none">
-          <span className="block text-foreground">MARKUS</span>
-          <span className="block text-primary">KATZER</span>
+
+        <h1 className="text-rapid-h1 mb-4">
+          <span className="block text-rapid-white">MARKUS</span>
+          <span className="block text-rapid-green">KATZER</span>
         </h1>
-        
-        <p className="mt-8 text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
-          {t("hero.tagline")}
+
+        <p className="text-rapid-body text-rapid-white/90 font-light max-w-2xl mx-auto leading-relaxed mb-12">
+          {language === "en"
+            ? "Strategic leadership with high-performance playing career as foundation for modern, future-oriented leadership. CEO Sports at SK Rapid Wien."
+            : "Strategische Führungspersönlichkeit mit Hochleistungs-Spielerkarriere als Fundament für moderne, zukunftsorientierte Führung. CEO Sports bei SK Rapid Wien."
+          }
         </p>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm">
+        {/* Stats with SK Rapid Wien styling */}
+        <div className="flex flex-wrap justify-center gap-12 text-rapid-white">
           <div className="text-center">
-            <p className="text-4xl md:text-5xl font-black text-foreground">2022</p>
-            <p className="text-muted-foreground uppercase tracking-widest text-xs mt-1">
-              {language === "en" ? "CEO Sports since" : "CEO Sports seit"}
+            <p className="text-4xl md:text-5xl font-sohne-condensed font-black text-rapid-green">2022</p>
+            <p className="text-rapid-white/70 uppercase tracking-widest text-xs mt-2 font-sohne">
+              {language === "en" ? "CEO SPORTS SINCE" : "CEO SPORTS SEIT"}
             </p>
           </div>
           <div className="text-center">
-            <p className="text-4xl md:text-5xl font-black text-primary">400+</p>
-            <p className="text-muted-foreground uppercase tracking-widest text-xs mt-1">
-              {language === "en" ? "Pro Matches" : "Profi-Spiele"}
+            <p className="text-4xl md:text-5xl font-sohne-condensed font-black text-rapid-white">400+</p>
+            <p className="text-rapid-white/70 uppercase tracking-widest text-xs mt-2 font-sohne">
+              {language === "en" ? "PRO MATCHES" : "PROFI-SPIELE"}
             </p>
           </div>
           <div className="text-center">
-            <p className="text-4xl md:text-5xl font-black text-foreground">2x</p>
-            <p className="text-muted-foreground uppercase tracking-widest text-xs mt-1">
-              {language === "en" ? "Champion" : "Meister"}
+            <p className="text-4xl md:text-5xl font-sohne-condensed font-black text-rapid-gold">2x</p>
+            <p className="text-rapid-white/70 uppercase tracking-widest text-xs mt-2 font-sohne">
+              {language === "en" ? "CHAMPION" : "MEISTER"}
             </p>
           </div>
+        </div>
+
+        {/* CTA Buttons */}
+        <div className="mt-16 flex flex-col sm:flex-row gap-6 justify-center">
+          <button className="btn-rapid-primary focus-rapid">
+            {language === "en" ? "LEARN MORE" : "MEHR ERFAHREN"}
+          </button>
+          <button className="btn-rapid-secondary focus-rapid">
+            {language === "en" ? "CONTACT" : "KONTAKT"}
+          </button>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator with Viertelstunde motif */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <a 
-          href="#biography" 
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        <a
+          href="#about"
+          className="flex flex-col items-center gap-2 text-rapid-white/60 hover:text-rapid-green transition-colors group"
         >
-          <span className="text-xs uppercase tracking-widest">
-            {language === "en" ? "Learn more" : "Mehr erfahren"}
+          <span className="text-xs uppercase tracking-widest font-sohne">
+            {language === "en" ? "Discover More" : "Mehr Entdecken"}
           </span>
-          <ChevronDown className="h-5 w-5 animate-bounce" />
+          <div className="relative">
+            <ChevronDown className="h-5 w-5 animate-bounce" />
+            <div className="absolute inset-0 border-2 border-rapid-green rounded-full w-8 h-8 -m-1.5 opacity-20 group-hover:opacity-40 transition-opacity viertelstunde-loader"></div>
+          </div>
         </a>
       </div>
     </section>

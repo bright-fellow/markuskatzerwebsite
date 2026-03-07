@@ -1,82 +1,70 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @import 'tw-animate-css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
+/* SK Rapid Wien Design System - Dark Mode First */
 :root {
-  --background: oklch(0.08 0.01 250);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.12 0.01 250);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.12 0.01 250);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.55 0.20 145);
-  --primary-foreground: oklch(0.08 0.01 250);
-  --secondary: oklch(0.18 0.01 250);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.18 0.01 250);
-  --muted-foreground: oklch(0.60 0 0);
-  --accent: oklch(0.55 0.20 145);
-  --accent-foreground: oklch(0.08 0.01 250);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.22 0.01 250);
-  --input: oklch(0.18 0.01 250);
-  --ring: oklch(0.55 0.20 145);
-  --chart-1: oklch(0.55 0.20 145);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0rem;
-  --sidebar: oklch(0.12 0.01 250);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.55 0.20 145);
-  --sidebar-primary-foreground: oklch(0.08 0.01 250);
-  --sidebar-accent: oklch(0.18 0.01 250);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.22 0.01 250);
-  --sidebar-ring: oklch(0.55 0.20 145);
-}
+  /* SK Rapid Wien Color Palette */
+  --rapid-green: #00794B;
+  --rapid-blue: #005081;
+  --rapid-red: #E30613;
+  --rapid-gold: #FFED00;
+  --rapid-black: #000000;
+  --rapid-dark: #1D1D1B;
+  --rapid-white: #FFFFFF;
 
-.dark {
-  --background: oklch(0.08 0.01 250);
-  --foreground: oklch(0.98 0 0);
-  --card: oklch(0.12 0.01 250);
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.12 0.01 250);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.55 0.20 145);
-  --primary-foreground: oklch(0.08 0.01 250);
-  --secondary: oklch(0.18 0.01 250);
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.18 0.01 250);
-  --muted-foreground: oklch(0.60 0 0);
-  --accent: oklch(0.55 0.20 145);
-  --accent-foreground: oklch(0.08 0.01 250);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.22 0.01 250);
-  --input: oklch(0.18 0.01 250);
-  --ring: oklch(0.55 0.20 145);
-  --chart-1: oklch(0.55 0.20 145);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.12 0.01 250);
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.55 0.20 145);
-  --sidebar-primary-foreground: oklch(0.08 0.01 250);
-  --sidebar-accent: oklch(0.18 0.01 250);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.22 0.01 250);
-  --sidebar-ring: oklch(0.55 0.20 145);
-}
+  /* Background & Surfaces */
+  --background: var(--rapid-black);
+  --foreground: var(--rapid-white);
+  --card: var(--rapid-dark);
+  --card-foreground: var(--rapid-white);
+  --popover: var(--rapid-dark);
+  --popover-foreground: var(--rapid-white);
 
-@theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /* Primary Colors */
+  --primary: var(--rapid-green);
+  --primary-foreground: var(--rapid-white);
+
+  /* Secondary & Accents */
+  --secondary: var(--rapid-blue);
+  --secondary-foreground: var(--rapid-white);
+  --muted: var(--rapid-dark);
+  --muted-foreground: oklch(0.60 0 0);
+  --accent: var(--rapid-gold);
+  --accent-foreground: var(--rapid-black);
+
+  /* Status Colors */
+  --destructive: var(--rapid-red);
+  --destructive-foreground: var(--rapid-white);
+
+  /* Borders & Inputs */
+  --border: oklch(0.22 0.01 250);
+  --input: var(--rapid-dark);
+  --ring: var(--rapid-green);
+
+  /* Chart Colors */
+  --chart-1: var(--rapid-green);
+  --chart-2: var(--rapid-blue);
+  --chart-3: var(--rapid-red);
+  --chart-4: var(--rapid-gold);
+  --chart-5: var(--rapid-white);
+
+  /* Layout */
+  --radius: 0rem; /* Sharp corners for athletic feel */
+
+  /* Sidebar */
+  --sidebar: var(--rapid-black);
+  --sidebar-foreground: var(--rapid-white);
+  --sidebar-primary: var(--rapid-green);
+  --sidebar-primary-foreground: var(--rapid-white);
+  --sidebar-accent: var(--rapid-dark);
+  --sidebar-accent-foreground: var(--rapid-white);
+  --sidebar-border: oklch(0.22 0.01 250);
+  --sidebar-ring: var(--rapid-green);
+
+  /* Shadcn/ui color variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -115,11 +103,195 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Light mode overrides (optional, but keeping dark mode as primary) */
+.light {
+  --background: var(--rapid-white);
+  --foreground: var(--rapid-black);
+  --card: oklch(0.98 0 0);
+  --card-foreground: var(--rapid-black);
+  --popover: oklch(0.98 0 0);
+  --popover-foreground: var(--rapid-black);
+  --primary: var(--rapid-green);
+  --primary-foreground: var(--rapid-white);
+  --secondary: var(--rapid-blue);
+  --secondary-foreground: var(--rapid-white);
+  --muted: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.40 0 0);
+  --accent: var(--rapid-gold);
+  --accent-foreground: var(--rapid-black);
+  --destructive: var(--rapid-red);
+  --destructive-foreground: var(--rapid-white);
+  --border: oklch(0.90 0 0);
+  --input: oklch(0.95 0 0);
+  --ring: var(--rapid-green);
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: var(--rapid-black);
+  --sidebar-primary: var(--rapid-green);
+  --sidebar-primary-foreground: var(--rapid-white);
+  --sidebar-accent: oklch(0.95 0 0);
+  --sidebar-accent-foreground: var(--rapid-black);
+  --sidebar-border: oklch(0.90 0 0);
+  --sidebar-ring: var(--rapid-green);
+}
+
+/* SK Rapid Wien Typography & Design Elements */
+
+/* Custom font stack mimicking Söhne */
+.font-sohne {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+.font-sohne-condensed {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* Jugendstil Pattern Background */
+.jugendstil-pattern {
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(0, 121, 75, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(0, 121, 75, 0.1) 2px, transparent 2px);
+  background-size: 20px 20px;
+}
+
+/* 45° Angle Utilities */
+.angle-45 {
+  transform: rotate(-45deg);
+}
+
+.angle-45-reverse {
+  transform: rotate(45deg);
+}
+
+.gradient-45 {
+  background: linear-gradient(-45deg, var(--rapid-green), var(--rapid-blue));
+}
+
+.overlay-45 {
+  background: linear-gradient(-45deg, rgba(0, 121, 75, 0.8), rgba(0, 80, 129, 0.8));
+}
+
+/* Keyvisual "1899" Styling */
+.keyvisual-1899 {
+  font-size: clamp(8rem, 20vw, 15rem);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: var(--rapid-green);
+  opacity: 0.1;
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Viertelstunde Loading Animation */
+@keyframes viertelstunde {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.viertelstunde-loader {
+  animation: viertelstunde 2s linear infinite;
+}
+
+/* High contrast image filter */
+.rapid-filter {
+  filter: contrast(1.2) brightness(0.9) saturate(0.8);
+}
+
+.rapid-filter:hover {
+  filter: contrast(1.4) brightness(1.1) saturate(1.2);
+}
+
+/* Typography Hierarchy */
+.text-rapid-h1 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  @apply font-black uppercase tracking-tighter;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 0.9;
+}
+
+.text-rapid-h2 {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  @apply font-bold uppercase tracking-tight;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.95;
+}
+
+.text-rapid-body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  @apply font-medium;
+  line-height: 1.6;
+}
+
+/* Button Styles */
+.btn-rapid-primary {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  @apply font-bold uppercase tracking-wider px-8 py-4 transition-all duration-300;
+  background: var(--rapid-green);
+  color: var(--rapid-white);
+  border: 2px solid var(--rapid-green);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.btn-rapid-primary:hover {
+  background: var(--rapid-white);
+  color: var(--rapid-green);
+}
+
+.btn-rapid-secondary {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  @apply font-bold uppercase tracking-wider px-8 py-4 transition-all duration-300;
+  background: transparent;
+  color: var(--rapid-green);
+  border: 2px solid var(--rapid-green);
+}
+
+.btn-rapid-secondary:hover {
+  background: var(--rapid-green);
+  color: var(--rapid-white);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rapid-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rapid-green);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rapid-blue);
+}
+
+/* Focus states */
+.focus-rapid:focus-visible {
+  outline: 2px solid var(--rapid-gold);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--rapid-green);
+  color: var(--rapid-white);
+}
+
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }

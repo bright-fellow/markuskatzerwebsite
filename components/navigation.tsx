@@ -35,14 +35,14 @@ export function Navigation() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled 
-          ? "bg-background/95 backdrop-blur-lg" 
+        scrolled
+          ? "bg-rapid-black/95 backdrop-blur-lg border-b border-rapid-dark"
           : "bg-transparent"
       )}
     >
       <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
-        <a href="#" className="font-black text-2xl tracking-tighter text-foreground">
-          MARKUS<span className="text-primary">KATZER</span>
+        <a href="#" className="font-sohne-condensed font-black text-xl tracking-tighter text-rapid-white hover:text-rapid-green transition-colors">
+          MARKUS<span className="text-rapid-green">KATZER</span>
         </a>
 
         {/* Desktop Navigation */}
@@ -52,22 +52,22 @@ export function Navigation() {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="text-xs font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  className="text-xs font-sohne font-bold tracking-widest text-rapid-white/70 hover:text-rapid-green transition-colors duration-300 uppercase"
                 >
                   {t(item.labelKey)}
                 </a>
               </li>
             ))}
           </ul>
-          
+
           {/* Language Switcher */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300 ml-4 border border-border hover:border-primary/50 px-3 py-1.5"
+            className="flex items-center gap-2 text-rapid-white/70 hover:text-rapid-green transition-colors duration-300 border border-rapid-dark hover:border-rapid-green px-3 py-1.5 focus-rapid"
             aria-label={language === "en" ? "Switch to German" : "Switch to English"}
           >
             <Globe className="h-4 w-4" />
-            <span className="text-xs font-bold tracking-widest uppercase">{language === "en" ? "DE" : "EN"}</span>
+            <span className="text-xs font-sohne font-bold tracking-widest uppercase">{language === "en" ? "DE" : "EN"}</span>
           </button>
         </div>
 
@@ -75,13 +75,13 @@ export function Navigation() {
         <div className="lg:hidden flex items-center gap-4">
           <button
             onClick={toggleLanguage}
-            className="text-muted-foreground hover:text-foreground transition-colors duration-300 border border-border hover:border-primary/50 p-2"
+            className="text-rapid-white/70 hover:text-rapid-green transition-colors duration-300 border border-rapid-dark hover:border-rapid-green p-2 focus-rapid"
             aria-label={language === "en" ? "Switch to German" : "Switch to English"}
           >
             <Globe className="h-5 w-5" />
           </button>
-          <button 
-            className="text-foreground"
+          <button
+            className="text-rapid-white hover:text-rapid-green transition-colors focus-rapid"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -91,14 +91,14 @@ export function Navigation() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-background/98 backdrop-blur-lg border-t border-border">
+        <div className="lg:hidden bg-rapid-black/98 backdrop-blur-lg border-t border-rapid-dark">
           <ul className="flex flex-col py-6 px-6">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-4 text-sm font-bold tracking-widest text-muted-foreground hover:text-foreground transition-colors border-b border-border/50"
+                  className="block py-4 text-sm font-sohne font-bold tracking-widest text-rapid-white/70 hover:text-rapid-green transition-colors border-b border-rapid-dark uppercase"
                 >
                   {t(item.labelKey)}
                 </a>
