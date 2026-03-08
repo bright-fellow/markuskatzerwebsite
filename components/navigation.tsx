@@ -125,6 +125,52 @@ export function Navigation() {
         .rapid-mobile-link:hover {
           color: ${NAV_TEXT};
         }
+        /* Shimmer bar: appears on header when it becomes solid */
+        @keyframes nav-shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(400%); }
+        }
+        .rapid-header.scrolled::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 25%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${NAV_GREEN_ACCENT}, transparent);
+          animation: nav-shimmer 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+          pointer-events: none;
+        }
+        /* Mobile menu entrance */
+        @keyframes mobile-menu-in {
+          0% { opacity: 0; transform: translateY(-8px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes mobile-stripe {
+          0% { transform: translateX(-100%) skewX(-15deg); opacity: 0.18; }
+          100% { transform: translateX(400%) skewX(-15deg); opacity: 0; }
+        }
+        .rapid-mobile-menu {
+          position: relative;
+          overflow: hidden;
+          animation: mobile-menu-in 0.28s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        .rapid-mobile-menu::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: ${NAV_GREEN_ACCENT};
+          width: 60%;
+          animation: mobile-stripe 0.55s cubic-bezier(0.4,0,0.2,1) forwards;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .rapid-mobile-item {
+          position: relative;
+          z-index: 1;
+          opacity: 0;
+          animation: mobile-menu-in 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
       `}</style>
 
       <header className={`rapid-header${scrolled ? " scrolled" : ""}`}>
@@ -151,11 +197,6 @@ export function Navigation() {
               flexShrink: 0,
             }}
           >
-            {/* Shield monogram */}
-            <svg width="26" height="30" viewBox="0 0 26 30" fill="none" aria-hidden="true">
-              <path d="M13 0L26 4.5V17C26 23.5 20.5 28 13 30C5.5 28 0 23.5 0 17V4.5L13 0Z" fill="#298e68" />
-              <text x="13" y="21" textAnchor="middle" fill="#f6f6f6" fontSize="10" fontWeight="900" fontFamily="Inter, sans-serif">MK</text>
-            </svg>
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
               <span
                 style={{
@@ -234,7 +275,6 @@ export function Navigation() {
                 color: NAV_TEXT,
                 padding: "6px 8px",
                 cursor: "pointer",
-                display: "flex",
                 alignItems: "center",
                 transition: "border-color 0.2s",
               }}
@@ -248,16 +288,20 @@ export function Navigation() {
         {/* Mobile Menu — always solid so it's readable over any content */}
         {mobileMenuOpen && (
           <div
+            className="rapid-mobile-menu"
             style={{
               background: NAV_BG,
               borderTop: `1px solid ${NAV_BORDER}`,
               padding: "0 32px 20px",
-              backdropFilter: "blur(12px)",
             }}
           >
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-              {navItems.map((item) => (
-                <li key={item.href}>
+              {navItems.map((item, i) => (
+                <li
+                  key={item.href}
+                  className="rapid-mobile-item"
+                  style={{ animationDelay: `${60 + i * 50}ms` }}
+                >
                   <a
                     href={item.href}
                     className="rapid-mobile-link"
