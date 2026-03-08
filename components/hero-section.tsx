@@ -12,16 +12,12 @@ export function HeroSection() {
       <style>{`
         .rapid-hero {
           position: relative;
-          min-height: 92vh;
+          height: 100vh;
+          min-height: 600px;
           display: flex;
           align-items: flex-end;
           overflow: hidden;
           background: #0d1f18;
-        }
-        @media (min-width: 768px) {
-          .rapid-hero {
-            min-height: 88vh;
-          }
         }
         .rapid-hero-badge {
           display: inline-block;
@@ -177,8 +173,8 @@ export function HeroSection() {
           {/* Bottom fade to page bg */}
           <div style={{
             position: "absolute", bottom: 0, left: 0, right: 0,
-            height: "40%",
-            background: "linear-gradient(to bottom, transparent 0%, rgba(36,66,51,0.3) 50%, #244233 100%)",
+            height: "50%",
+            background: "linear-gradient(to bottom, transparent 0%, rgba(13,31,24,0.6) 40%, rgba(36,66,51,0.85) 70%, #244233 100%)",
             zIndex: 2,
             pointerEvents: "none",
           }} />

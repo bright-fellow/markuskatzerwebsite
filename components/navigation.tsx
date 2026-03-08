@@ -14,6 +14,7 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeItem, setActiveItem] = useState("")
+  const [menuKey, setMenuKey] = useState(0)
   const { language, setLanguage, t } = useLanguage()
 
   const navItems = [
@@ -32,6 +33,11 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  const openMenu = () => {
+    setMenuKey(k => k + 1)
+    setMobileMenuOpen(true)
+  }
 
   const toggleLanguage = () => {
     setLanguage(language === "en" ? "de" : "en")
@@ -62,33 +68,43 @@ export function Navigation() {
           background: ${NAV_GREEN_ACCENT};
           transition: width 0.25s ease;
         }
-        .rapid-nav-link:hover {
-          color: ${NAV_TEXT};
-        }
-        .rapid-nav-link:hover::after {
-          width: 100%;
-        }
-        .rapid-nav-link.active {
-          color: ${NAV_TEXT};
-        }
-        .rapid-nav-link.active::after {
-          width: 100%;
-        }
+        .rapid-nav-link:hover { color: ${NAV_TEXT}; }
+        .rapid-nav-link:hover::after { width: 100%; }
+        .rapid-nav-link.active { color: ${NAV_TEXT}; }
+        .rapid-nav-link.active::after { width: 100%; }
+
         .rapid-header {
           position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
+          top: 0; left: 0; right: 0;
           z-index: 50;
           background: transparent;
           border-bottom: 1px solid transparent;
           transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+          overflow: hidden;
         }
         .rapid-header.scrolled {
           background: ${NAV_BG};
           border-bottom-color: ${NAV_BORDER};
           box-shadow: 0 4px 24px rgba(0,0,0,0.35);
         }
+
+        /* Shimmer sweeps across bottom border on scroll-solidify */
+        @keyframes nav-shimmer {
+          0%   { left: -30%; opacity: 1; }
+          100% { left: 110%; opacity: 0; }
+        }
+        .rapid-header.scrolled::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: -30%;
+          width: 30%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, ${NAV_GREEN_ACCENT}, transparent);
+          animation: nav-shimmer 0.9s cubic-bezier(0.4,0,0.2,1) both;
+          pointer-events: none;
+        }
+
         .rapid-lang-btn {
           display: flex;
           align-items: center;
@@ -109,6 +125,29 @@ export function Navigation() {
           color: ${NAV_TEXT};
           border-color: rgba(246,246,246,0.35);
         }
+
+        /* Desktop nav — shown lg+ */
+        .rapid-desktop-nav { display: none; }
+        @media (min-width: 1024px) {
+          .rapid-desktop-nav { display: flex; }
+          .rapid-lang-desktop { display: flex; }
+          .rapid-lang-mobile { display: none; }
+          .rapid-hamburger { display: none; }
+        }
+        .rapid-lang-desktop { display: none; }
+        .rapid-lang-mobile { display: flex; }
+        .rapid-hamburger {
+          display: flex;
+          align-items: center;
+          background: none;
+          border: 1px solid ${NAV_BORDER};
+          color: ${NAV_TEXT};
+          padding: 6px 8px;
+          cursor: pointer;
+          transition: border-color 0.2s;
+        }
+        .rapid-hamburger:hover { border-color: rgba(246,246,246,0.4); }
+
         .rapid-mobile-link {
           display: block;
           padding: 14px 0;
@@ -122,46 +161,35 @@ export function Navigation() {
           border-bottom: 1px solid ${NAV_BORDER};
           transition: color 0.2s ease;
         }
-        .rapid-mobile-link:hover {
-          color: ${NAV_TEXT};
-        }
-        /* Shimmer bar: appears on header when it becomes solid */
-        @keyframes nav-shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(400%); }
-        }
-        .rapid-header.scrolled::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 25%;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, ${NAV_GREEN_ACCENT}, transparent);
-          animation: nav-shimmer 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-          pointer-events: none;
-        }
-        /* Mobile menu entrance */
-        @keyframes mobile-menu-in {
-          0% { opacity: 0; transform: translateY(-8px); }
+        .rapid-mobile-link:hover { color: ${NAV_TEXT}; }
+
+        /* Mobile menu animations */
+        @keyframes menu-slide-in {
+          0%   { opacity: 0; transform: translateY(-10px); }
           100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes mobile-stripe {
-          0% { transform: translateX(-100%) skewX(-15deg); opacity: 0.18; }
-          100% { transform: translateX(400%) skewX(-15deg); opacity: 0; }
+        @keyframes menu-stripe {
+          0%   { transform: translateX(-100%) skewX(-18deg); opacity: 0.22; }
+          100% { transform: translateX(500%) skewX(-18deg); opacity: 0; }
         }
+        @keyframes item-fade-in {
+          0%   { opacity: 0; transform: translateX(-10px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+
         .rapid-mobile-menu {
           position: relative;
           overflow: hidden;
-          animation: mobile-menu-in 0.28s cubic-bezier(0.16,1,0.3,1) forwards;
+          animation: menu-slide-in 0.3s cubic-bezier(0.16,1,0.3,1) both;
         }
         .rapid-mobile-menu::before {
           content: '';
           position: absolute;
-          inset: 0;
+          top: 0; bottom: 0;
+          left: 0;
+          width: 55%;
           background: ${NAV_GREEN_ACCENT};
-          width: 60%;
-          animation: mobile-stripe 0.55s cubic-bezier(0.4,0,0.2,1) forwards;
+          animation: menu-stripe 0.6s cubic-bezier(0.4,0,0.2,1) both;
           pointer-events: none;
           z-index: 0;
         }
@@ -169,7 +197,7 @@ export function Navigation() {
           position: relative;
           z-index: 1;
           opacity: 0;
-          animation: mobile-menu-in 0.35s cubic-bezier(0.16,1,0.3,1) forwards;
+          animation: item-fade-in 0.35s cubic-bezier(0.16,1,0.3,1) both;
         }
       `}</style>
 
@@ -228,7 +256,7 @@ export function Navigation() {
 
           {/* Desktop Nav */}
           <ul
-            className="hidden lg:flex"
+            className="rapid-desktop-nav"
             style={{ listStyle: "none", margin: 0, padding: 0, alignItems: "center", gap: 28 }}
           >
             {navItems.map((item) => (
@@ -248,36 +276,25 @@ export function Navigation() {
           <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
             <button
               onClick={toggleLanguage}
-              className="rapid-lang-btn hidden lg:flex"
+              className="rapid-lang-btn rapid-lang-desktop"
               aria-label={language === "en" ? "Auf Deutsch wechseln" : "Switch to English"}
             >
               <Globe size={13} />
               <span>{language === "en" ? "DE" : "EN"}</span>
             </button>
 
-            {/* Mobile: lang */}
             <button
               onClick={toggleLanguage}
-              className="rapid-lang-btn lg:hidden"
+              className="rapid-lang-btn rapid-lang-mobile"
               style={{ padding: "6px 8px" }}
               aria-label={language === "en" ? "Auf Deutsch wechseln" : "Switch to English"}
             >
               <Globe size={14} />
             </button>
 
-            {/* Mobile: hamburger */}
             <button
-              className="lg:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{
-                background: "none",
-                border: `1px solid ${NAV_BORDER}`,
-                color: NAV_TEXT,
-                padding: "6px 8px",
-                cursor: "pointer",
-                alignItems: "center",
-                transition: "border-color 0.2s",
-              }}
+              className="rapid-hamburger"
+              onClick={mobileMenuOpen ? () => setMobileMenuOpen(false) : openMenu}
               aria-label="Menu"
             >
               {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -285,9 +302,9 @@ export function Navigation() {
           </div>
         </nav>
 
-        {/* Mobile Menu — always solid so it's readable over any content */}
         {mobileMenuOpen && (
           <div
+            key={menuKey}
             className="rapid-mobile-menu"
             style={{
               background: NAV_BG,
@@ -300,7 +317,7 @@ export function Navigation() {
                 <li
                   key={item.href}
                   className="rapid-mobile-item"
-                  style={{ animationDelay: `${60 + i * 50}ms` }}
+                  style={{ animationDelay: `${80 + i * 55}ms` }}
                 >
                   <a
                     href={item.href}
@@ -315,7 +332,6 @@ export function Navigation() {
           </div>
         )}
       </header>
-
     </>
   )
 }
