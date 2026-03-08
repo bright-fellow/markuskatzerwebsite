@@ -1,6 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
+import { AnimateIn } from "@/components/animate-in"
 
 interface CareerItem {
   period: { en: string; de: string }
@@ -90,21 +91,23 @@ export function CareerSection() {
   }
   
   return (
-    <section id="career" className="py-24 lg:py-32 px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-primary text-sm font-bold tracking-[0.3em] uppercase">
-            {language === "en" ? "Experience" : "Erfahrung"}
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 tracking-tight">
-            {language === "en" ? "CAREER" : "KARRIERE"}
-          </h2>
-        </div>
+    <section id="career" className="section-gap px-0">
+      <div className="page-container">
+        <AnimateIn direction="left">
+          <div className="mb-16">
+            <span className="section-label">
+              {language === "en" ? "Experience" : "Erfahrung"}
+            </span>
+            <h2 className="section-heading">
+              {language === "en" ? "CAREER" : "KARRIERE"}
+            </h2>
+          </div>
+        </AnimateIn>
 
         <div className="space-y-0">
           {careerHistory.map((item, index) => (
-            <div 
-              key={index} 
+            <AnimateIn key={index} direction="up" delay={index * 80}>
+            <div
               className="group border-t border-border py-8 lg:py-12 hover:bg-card/50 transition-colors px-4 -mx-4"
             >
               <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
@@ -147,6 +150,7 @@ export function CareerSection() {
                 </div>
               </div>
             </div>
+            </AnimateIn>
           ))}
         </div>
       </div>

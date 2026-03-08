@@ -2,6 +2,7 @@
 
 import { Trophy, TrendingUp, Users, Target } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { AnimateIn } from "@/components/animate-in"
 
 export function AchievementsSection() {
   const { language } = useLanguage()
@@ -64,27 +65,29 @@ export function AchievementsSection() {
   ]
 
   return (
-    <section id="achievements" className="py-24 lg:py-32 px-6 lg:px-8 bg-card">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-primary text-sm font-bold tracking-[0.3em] uppercase">
-            {language === "en" ? "Key Achievements" : "Schlüsselerfolge"}
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 tracking-tight">
-            {language === "en" ? "ACHIEVEMENTS" : "ERFOLGE"}
-          </h2>
-          <p className="text-muted-foreground mt-6 max-w-3xl mx-auto text-lg">
-            {language === "en" 
-              ? "Successful promotion with First Vienna FC from the fifth division to the second division. Doubling of squad value at SK Rapid with record outgoing transfers and reaching the UEFA Conference League quarter-finals."
-              : "Erfolgreicher Aufstieg mit First Vienna FC von der fünften Liga in die zweite Liga. Verdopplung des Kaderwerts bei SK Rapid mit Rekord-Abgangstransfers und Erreichen des UEFA Conference League Viertelfinales."
-            }
-          </p>
-        </div>
+    <section id="achievements" className="section-gap px-0" style={{background:"#1a2e24"}}>
+      <div className="page-container">
+        <AnimateIn direction="left">
+          <div className="mb-16">
+            <span className="section-label">
+              {language === "en" ? "Key Achievements" : "Schlüsselerfolge"}
+            </span>
+            <h2 className="section-heading">
+              {language === "en" ? "ACHIEVEMENTS" : "ERFOLGE"}
+            </h2>
+            <p className="text-muted-foreground mt-6 max-w-3xl text-lg">
+              {language === "en"
+                ? "Successful promotion with First Vienna FC from the fifth division to the second division. Doubling of squad value at SK Rapid with record outgoing transfers and reaching the UEFA Conference League quarter-finals."
+                : "Erfolgreicher Aufstieg mit First Vienna FC von der fünften Liga in die zweite Liga. Verdopplung des Kaderwerts bei SK Rapid mit Rekord-Abgangstransfers und Erreichen des UEFA Conference League Viertelfinales."
+              }
+            </p>
+          </div>
+        </AnimateIn>
 
         <div className="grid md:grid-cols-2 gap-8">
           {achievements.map((achievement, index) => (
-            <div 
-              key={index} 
+            <AnimateIn key={index} direction="up" delay={index * 100}>
+            <div
               className="group p-8 bg-background border border-border hover:border-primary/50 transition-all"
             >
               <div className="flex items-center gap-4 mb-6">
@@ -107,6 +110,7 @@ export function AchievementsSection() {
                 ))}
               </ul>
             </div>
+            </AnimateIn>
           ))}
         </div>
       </div>

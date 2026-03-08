@@ -149,8 +149,8 @@ export function MediaSection() {
   }
   
   return (
-    <section id="media" className="py-24 lg:py-32 px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section id="media" className="section-gap px-0">
+      <div className="page-container">
         <div className="text-center mb-16">
           <span className="text-primary text-sm font-bold tracking-[0.3em] uppercase">
             {language === "en" ? "Press & Videos" : "Presse & Videos"}

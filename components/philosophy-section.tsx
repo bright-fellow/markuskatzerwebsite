@@ -25,8 +25,8 @@ export function PhilosophySection() {
   ]
 
   return (
-    <section id="philosophy" className="py-24 lg:py-32 px-6 lg:px-8 bg-card">
-      <div className="max-w-7xl mx-auto">
+    <section id="philosophy" className="section-gap px-0" style={{background:"#1a2e24"}}>
+      <div className="page-container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-primary text-sm font-bold tracking-[0.3em] uppercase">

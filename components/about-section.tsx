@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useLanguage } from "@/lib/language-context"
+import { AnimateIn } from "@/components/animate-in"
 
 export function AboutSection() {
   const { language } = useLanguage()
@@ -29,14 +30,14 @@ export function AboutSection() {
     : ["Deutsch (Muttersprache)", "Englisch (Fließend)"]
 
   return (
-    <section id="biography" className="py-24 lg:py-32 px-6 lg:px-8 bg-card">
-      <div className="max-w-7xl mx-auto">
+    <section id="biography" className="section-gap" style={{ background: "#1a2e24", borderTop: "2px solid #244233" }}>
+      <div className="page-container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image */}
-          <div className="relative lg:order-last">
+          <AnimateIn direction="right" delay={100} className="relative lg:order-last">
             <div className="relative w-full min-h-[500px] lg:min-h-[700px]">
-              <Image 
-                src="/images/markus-katzer-portrait.png" 
+              <Image
+                src="/images/markus-katzer-portrait.png"
                 alt="Markus Katzer"
                 fill
                 className="object-contain object-center"
@@ -44,28 +45,33 @@ export function AboutSection() {
               />
             </div>
             <div className="absolute bottom-0 left-0 bg-primary text-primary-foreground p-6">
-              <p className="text-5xl font-black">11.10</p>
+              <p className="text-5xl font-black">11.12</p>
               <p className="text-sm uppercase tracking-widest">1979</p>
             </div>
-          </div>
+          </AnimateIn>
 
           {/* Content */}
           <div>
-            <span className="text-primary text-sm font-bold tracking-[0.3em] uppercase">
-              {language === "en" ? "Profile" : "Profil"}
-            </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 tracking-tight">
-              {language === "en" ? "BIOGRAPHY" : "BIOGRAFIE"}
-            </h2>
+            <AnimateIn direction="left" delay={0}>
+              <span className="section-label">
+                {language === "en" ? "Profile" : "Profil"}
+              </span>
+              <h2 className="section-heading">
+                {language === "en" ? "BIOGRAPHY" : "BIOGRAFIE"}
+              </h2>
+            </AnimateIn>
             
-            <p className="mt-8 text-lg text-muted-foreground leading-relaxed">
-              {language === "en" 
-                ? "A modern, forward-thinking strategic leader committed to continuous development, innovation, and long-term structural improvement that enables sustainable sporting success."
-                : "Ein moderner, zukunftsorientierter strategischer Leiter, der sich der kontinuierlichen Entwicklung, Innovation und langfristigen strukturellen Verbesserung verschrieben hat, die nachhaltigen sportlichen Erfolg ermöglicht."
-              }
-            </p>
+            <AnimateIn direction="up" delay={120}>
+              <p className="mt-8 text-lg text-muted-foreground leading-relaxed">
+                {language === "en"
+                  ? "A modern, forward-thinking strategic leader committed to continuous development, innovation, and long-term structural improvement that enables sustainable sporting success."
+                  : "Ein moderner, zukunftsorientierter strategischer Leiter, der sich der kontinuierlichen Entwicklung, Innovation und langfristigen strukturellen Verbesserung verschrieben hat, die nachhaltigen sportlichen Erfolg ermöglicht."
+                }
+              </p>
+            </AnimateIn>
 
-            <div className="mt-10 grid sm:grid-cols-2 gap-8">
+            <AnimateIn direction="up" delay={200}>
+              <div className="mt-10 grid sm:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
                   {language === "en" ? "Personal Details" : "Persönliche Daten"}
@@ -98,39 +104,42 @@ export function AboutSection() {
                   ))}
                 </ul>
               </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
-                {language === "en" ? "Core Competences" : "Kernkompetenzen"}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {competences.map((competence) => (
-                  <span 
-                    key={competence} 
-                    className="px-4 py-2 text-sm bg-secondary text-secondary-foreground"
-                  >
-                    {competence}
-                  </span>
-                ))}
               </div>
-            </div>
+            </AnimateIn>
 
-            <div className="mt-10">
-              <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
-                Tools
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {tools.map((tool) => (
-                  <span 
-                    key={tool} 
-                    className="px-4 py-2 text-sm border border-border text-muted-foreground"
-                  >
-                    {tool}
-                  </span>
-                ))}
+            <AnimateIn direction="up" delay={300}>
+              <div className="mt-10">
+                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
+                  {language === "en" ? "Core Competences" : "Kernkompetenzen"}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {competences.map((competence) => (
+                    <span
+                      key={competence}
+                      className="px-4 py-2 text-sm bg-secondary text-secondary-foreground"
+                    >
+                      {competence}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+
+              <div className="mt-10">
+                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
+                  Tools
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="px-4 py-2 text-sm border border-border text-muted-foreground"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </div>

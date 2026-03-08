@@ -13,6 +13,10 @@
   --rapid-dark: #1D1D1B;
   --rapid-white: #FFFFFF;
 
+  /* SK Rapid.at accent green (lighter than brand green, used for links/highlights) */
+  --rapid-accent: #298e68;
+  --rapid-off-white: #f6f6f6;
+
   /* Background & Surfaces */
   --background: #244233;
   --foreground: var(--rapid-white);
@@ -369,8 +373,180 @@
 
 /* Selection */
 ::selection {
-  background: var(--rapid-green);
-  color: var(--rapid-white);
+  background: #298e68;
+  color: #f6f6f6;
+}
+
+/* ─── SK Rapid.at Page Structure ─────────────────────────── */
+
+/* Section gap system matching skrapid.at --section-gap */
+.section-gap {
+  padding-top: clamp(56px, 8vw, 112px);
+  padding-bottom: clamp(56px, 8vw, 112px);
+}
+
+.section-gap-sm {
+  padding-top: clamp(40px, 5vw, 72px);
+  padding-bottom: clamp(40px, 5vw, 72px);
+}
+
+/* Page max-width container */
+.page-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(20px, 4vw, 56px);
+  padding-right: clamp(20px, 4vw, 56px);
+}
+
+/* SK Rapid section label (small uppercase green label above heading) */
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #298e68;
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* SK Rapid.at heading style */
+.section-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f6f6f6;
+  margin: 0 0 24px;
+}
+
+/* Divider stripe — skrapid.at uses diagonal stripe dividers */
+.stripe-divider {
+  width: 100%;
+  height: 4px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #298e68,
+    #298e68 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* Card surface matching skrapid.at dark cards */
+.rapid-card {
+  background: #1a2e24;
+  border: 1px solid rgba(246,246,246,0.07);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.rapid-card:hover {
+  border-color: rgba(41,142,104,0.35);
+}
+
+/* Bounce animation for scroll indicator */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* ─── Global Entrance Animations ────────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hero-text-in {
+  from { opacity: 0; transform: translateY(40px) skewY(2deg); }
+  to   { opacity: 1; transform: translateY(0) skewY(0); }
+}
+
+@keyframes hero-badge-in {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes hero-stat-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stripe-sweep {
+  from { transform: translateX(-120%) skewX(-20deg); opacity: 0; }
+  20%  { opacity: 1; }
+  to   { transform: translateX(120vw) skewX(-20deg); opacity: 0; }
+}
+
+@keyframes nav-drop {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero section text animations */
+.hero-badge-animate {
+  animation: hero-badge-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+.hero-h1-line-1 {
+  animation: hero-text-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+  display: block;
+}
+.hero-h1-line-2 {
+  animation: hero-text-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+  display: block;
+}
+.hero-body-animate {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+.hero-stat-1 { animation: hero-stat-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both; }
+.hero-stat-2 { animation: hero-stat-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.88s both; }
+.hero-stat-3 { animation: hero-stat-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.0s both; }
+.hero-cta-animate {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.1s both;
+}
+.hero-scroll-animate {
+  animation: fade-in 0.6s ease 1.6s both;
+}
+
+/* Navigation entrance */
+.rapid-header {
+  animation: nav-drop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stripe sweep on hero */
+.hero-stripe-sweep::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -200px;
+  width: 80px; height: 100%;
+  background: rgba(255,255,255,0.06);
+  transform: skewX(-20deg);
+  animation: stripe-sweep 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Viertelstunde loader (spinner) */
+@keyframes viertelstunde-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.viertelstunde-loader {
+  animation: viertelstunde-spin 1s linear infinite;
 }
 
 @layer base {
