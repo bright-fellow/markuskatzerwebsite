@@ -19,11 +19,9 @@ export function LoginScreen() {
     e.preventDefault()
     setError("")
     setIsLoading(true)
-    try {
-      const success = await login(password)
-      if (!success) setError(language === "en" ? "Invalid password" : "Falsches Passwort")
-    } catch {
-      setError(language === "en" ? "Connection error" : "Verbindungsfehler")
+    const result = await login(password)
+    if (!result.success) {
+      setError(result.error || (language === "en" ? "Invalid password" : "Falsches Passwort"))
     }
     setIsLoading(false)
   }

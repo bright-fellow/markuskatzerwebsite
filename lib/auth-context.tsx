@@ -18,9 +18,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Check if user is already authenticated via session storage
     const authStatus = sessionStorage.getItem("mk_authenticated")
-    setIsAuthenticated(authStatus === "true")
-    setIsLoading(false)
+    if (authStatus === "true") {
+      setIsAuthenticated(true)
+      setIsLoading(false)
+      return
+    }
+
+    // Check for token in URL
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get("token")
+    if (token) {
+      validateToken(token)
+    } else {
+      setIsLoading(false)
+    }
   }, [])
+
+  const validateToken = async (token: string) => {
+    try {
+      const res = await fetch("/api/tokens/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      })
+      const data = await res.json()
+      if (data.valid) {
+        setIsAuthenticated(true)
+        sessionStorage.setItem("mk_authenticated", "true")
+        // Remove token from URL without reload
+        const url = new URL(window.location.href)
+        url.searchParams.delete("token")
+        window.history.replaceState({}, "", url.pathname)
+      }
+    } catch {
+      // Token validation failed, fall through to login screen
+    }
+    setIsLoading(false)
+  }
 
   const login = async (password: string): Promise<{ success: boolean; error?: string }> => {
     try {
