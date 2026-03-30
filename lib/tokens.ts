@@ -5,8 +5,25 @@ interface TokenPayload {
   exp: number // Unix timestamp in ms
 }
 
-// Track used tokens in memory (best-effort one-time enforcement in serverless)
-const usedTokens = new Set<string>()
+export interface StoredToken {
+  id: string
+  token: string
+  expiresAt: number
+  createdAt: number
+  usedAt?: number
+  revoked: boolean
+}
+
+export interface Visit {
+  timestamp: number
+  method: "password" | "token"
+  userAgent: string
+}
+
+// In-memory stores (best-effort in serverless; reset on cold start)
+const tokenStore = new Map<string, StoredToken>()
+const revokedIds = new Set<string>()
+export const visits: Visit[] = []
 
 function getSecret(): string {
   const secret = process.env.SITE_PASSWORD
@@ -34,7 +51,6 @@ function verify(token: string): TokenPayload | null {
     .update(encoded)
     .digest("base64url")
 
-  // Timing-safe comparison
   if (
     signature.length !== expectedSig.length ||
     !crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSig))
@@ -43,8 +59,7 @@ function verify(token: string): TokenPayload | null {
   }
 
   try {
-    const data = JSON.parse(Buffer.from(encoded, "base64url").toString())
-    return data as TokenPayload
+    return JSON.parse(Buffer.from(encoded, "base64url").toString()) as TokenPayload
   } catch {
     return null
   }
@@ -53,41 +68,67 @@ function verify(token: string): TokenPayload | null {
 /**
  * Generate a one-time access token with the given validity in minutes.
  */
-export function generateToken(validityMinutes: number): { token: string; expiresAt: string } {
+export function generateToken(validityMinutes: number): { token: string; id: string; expiresAt: string } {
   const id = crypto.randomUUID()
   const exp = Date.now() + validityMinutes * 60 * 1000
   const token = sign({ id, exp })
-  return {
+
+  tokenStore.set(id, {
+    id,
     token,
-    expiresAt: new Date(exp).toISOString(),
-  }
+    expiresAt: exp,
+    createdAt: Date.now(),
+    revoked: false,
+  })
+
+  return { token, id, expiresAt: new Date(exp).toISOString() }
 }
 
 /**
  * Validate a one-time access token.
- * Returns true if valid, unused, and not expired.
  */
 export function validateToken(token: string): { valid: boolean; error?: string } {
   const payload = verify(token)
-  if (!payload) {
-    return { valid: false, error: "Invalid token" }
-  }
+  if (!payload) return { valid: false, error: "Invalid token" }
+  if (Date.now() > payload.exp) return { valid: false, error: "Token expired" }
+  if (revokedIds.has(payload.id)) return { valid: false, error: "Token revoked" }
 
-  if (Date.now() > payload.exp) {
-    return { valid: false, error: "Token expired" }
-  }
-
-  if (usedTokens.has(payload.id)) {
-    return { valid: false, error: "Token already used" }
-  }
+  const stored = tokenStore.get(payload.id)
+  if (stored?.usedAt) return { valid: false, error: "Token already used" }
 
   // Mark as used
-  usedTokens.add(payload.id)
-
-  // Clean up expired token IDs periodically (keep set from growing)
-  if (usedTokens.size > 1000) {
-    usedTokens.clear()
-  }
+  if (stored) stored.usedAt = Date.now()
 
   return { valid: true }
+}
+
+/**
+ * Revoke a token by ID.
+ */
+export function revokeToken(id: string): boolean {
+  revokedIds.add(id)
+  const stored = tokenStore.get(id)
+  if (stored) {
+    stored.revoked = true
+    return true
+  }
+  return false
+}
+
+/**
+ * List all tokens (active, used, revoked) — expired ones filtered out.
+ */
+export function listTokens(): StoredToken[] {
+  const now = Date.now()
+  return Array.from(tokenStore.values())
+    .filter((t) => t.expiresAt > now)
+    .sort((a, b) => b.createdAt - a.createdAt)
+}
+
+/**
+ * Record a page visit.
+ */
+export function recordVisit(method: Visit["method"], userAgent: string) {
+  visits.unshift({ timestamp: Date.now(), method, userAgent })
+  if (visits.length > 200) visits.splice(200)
 }

@@ -49,6 +49,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const url = new URL(window.location.href)
         url.searchParams.delete("token")
         window.history.replaceState({}, "", url.pathname)
+        // Record visit
+        fetch("/api/visits", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ method: "token" }) }).catch(() => {})
       }
     } catch {
       // Token validation failed, fall through to login screen
@@ -69,6 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (data.success) {
         setIsAuthenticated(true)
         sessionStorage.setItem("mk_authenticated", "true")
+        fetch("/api/visits", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ method: "password" }) }).catch(() => {})
         return { success: true }
       } else {
         return { success: false, error: data.error || "Invalid password" }
